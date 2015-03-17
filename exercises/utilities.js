@@ -18,4 +18,4 @@ var utilities = {
     }
 };
 
-export = utilities;
+module.exports = utilities;
