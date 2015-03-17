@@ -1,14 +1,4 @@
-var Hapi = require('hapi');
-var path = require('path');
+var Q = require("q");
+var utilities = require("../../utilities");
 
-var server = Hapi.createServer('localhost', Number(process.argv[2] || 8080));
-
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: {
-        file: path.join(__dirname, '/index.html')
-    }
-});
-
-server.start();
+console.log("test");
