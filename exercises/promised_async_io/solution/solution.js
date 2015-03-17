@@ -2,11 +2,15 @@ var Q = require("q");
 var fs = require("fs");
 var path = require("path");
 
-fs.readFile(path.join(__dirname, "..", "..", "content1"), function(error, data) {
-    if (error) {
-        throw error;
-    }
+fs.readFile(
+    process.argv[2], 
+    { 
+        encoding: "utf8" 
+    }, 
+    function(error, data) {
+        if (error) {
+            throw error;
+        }
 
-    console.log(data);
-});
-
+        console.log(data);
+    });
