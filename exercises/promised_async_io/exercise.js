@@ -6,7 +6,8 @@ var filecheck     = require("workshopper-exercise/filecheck");
 var execute       = require("workshopper-exercise/execute");
 var comparestdout = require("workshopper-exercise/comparestdout");
 var wrappedexec   = require("workshopper-wrappedexec");
-var boganipsum      = require("boganipsum");
+var boganipsum    = require("boganipsum");
+var rimraf        = require("rimraf");
 var testFile      = path.join(os.tmpDir(), "_promises_" + process.pid + ".txt");
 
 // checks that the submission file actually exists
@@ -47,14 +48,20 @@ exercise.addVerifyProcessor(function (callback) {
   Object.keys(exercise.wrapData.fsCalls).forEach(function (m) {
     if (/Sync$/.test(m)) {
       usedSync = true;
-      this.emit("fail", this.__("fail.sync", { method: "fs." + m + "()" }));
+      this.emit("fail", exercise.__("fail.sync", { method: "fs." + m + "()" }));
     } else {
       usedAsync = true;
-      this.emit("pass", this.__("pass.async", { method: "fs." + m + "()" }));
+      this.emit("pass", exercise.__("pass.async", { method: "fs." + m + "()" }));
     }
   }.bind(this));
 
   callback(null, usedAsync && !usedSync);
+});
+
+// cleanup for both run and verify
+exercise.addCleanup(function (mode, passed, callback) {
+  // mode == 'run' || 'verify'
+  rimraf(testFile, callback);
 });
 
 module.exports = exercise;
