@@ -1,5 +1,7 @@
 var fs = require('fs')
 
+// TODO wrap Q with associated functions for MAGIC!
+
 function wrap (ctx) {
   ctx.fsCalls = {}
 
@@ -25,7 +27,6 @@ function wrap (ctx) {
       }
 
       // call the real fs.readFileSync
-
       return orig.apply(this, arguments)
     }
   })
