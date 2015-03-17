@@ -1,2 +1,0 @@
-var Q = require("q");
-
