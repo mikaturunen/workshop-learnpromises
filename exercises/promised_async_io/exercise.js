@@ -22,7 +22,7 @@ exercise = wrappedexec(exercise);
 
 // a module we want run just prior to the submission in the
 // child process
-exercise.wrapModule(require.resolve("../wrap"));
+exercise.wrapModule(require.resolve("../promise_wrap"));
 
 // set up the data file to be passed to the submission
 exercise.addSetup(function (mode, callback) {
@@ -42,26 +42,33 @@ exercise.addSetup(function (mode, callback) {
 
 // add a processor only for "verify" calls
 exercise.addVerifyProcessor(function (callback) {
-  var usedSync  = false;
-  var usedAsync = false;
-
-  Object.keys(exercise.wrapData.fsCalls).forEach(function (m) {
-    if (/Sync$/.test(m)) {
-      usedSync = true;
-      this.emit("fail", exercise.__("fail.sync", { method: "fs." + m + "()" }));
+    var keys = Object.keys(exercise.wrapData.promiseCalls);
+    
+    if (keys.length <= 0) {
+        this.emit("fail", exercise.__("fail.no.promises"));
+        callback(null, false);
     } else {
-      usedAsync = true;
-      this.emit("pass", exercise.__("pass.async", { method: "fs." + m + "()" }));
-    }
-  }.bind(this));
+        var testsDone = false;
 
-  callback(null, usedAsync && !usedSync);
+        keys.forEach(function (fn) {
+              fn = fn.toLowerCase();
+
+              if (fn.indexOf("ninvoke") === -1) {
+                  this.emit("fail", exercise.__("fail.ninvoke", { method: "Q." + fn + "()" }));
+              } else {
+                  this.emit("pass", exercise.__("pass.ninvoke", { method: "Q." + fn + "()" }));
+              }
+            }
+            .bind(this));
+
+
+    }    
 });
 
 // cleanup for both run and verify
 exercise.addCleanup(function (mode, passed, callback) {
-  // mode == 'run' || 'verify'
-  rimraf(testFile, callback);
+    // mode == 'run' || 'verify'
+    rimraf(testFile, callback);
 });
 
 module.exports = exercise;
