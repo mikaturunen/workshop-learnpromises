@@ -1,9 +1,9 @@
 {
     "fail": {
-       "no.promises" : "",
-       "ninvoke": ""
+       "no.promises" : "Q not used - Example: var Q = require(\"q\");",
+       "ninvoke": "Q.ninvoke not called. You can use Q.ninvoke to wrap node-like callbacks into promises super easily."
     },
     "pass": {
-        "ninvoke": ""
+        "ninvoke": "Q.ninvoke used."
     }
 }

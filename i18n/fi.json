@@ -1,0 +1,9 @@
+{
+    "fail": {
+       "no.promises" : "Q ei käytössä - Esimerkki: var Q = require(\"q\");",
+       "ninvoke": "Q.ninvoke ei kutsuttu. Voit kääriä Q.ninvokella nodemaiset kutsut (callback) promiseihin helposti."
+    },
+    "pass": {
+        "ninvoke": "Q.ninvoke käytetty."
+    }
+}
