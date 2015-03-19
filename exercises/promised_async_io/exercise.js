@@ -34,7 +34,7 @@ exercise.addSetup(function (mode, callback) {
     // args to do its magic
     this.submissionArgs.unshift(testFile);
     this.solutionArgs.unshift(testFile);
-    var txt = boganipsum({ paragraphs: Math.ceil(Math.random() * 50) });
+    var txt = boganipsum({ paragraphs: Math.ceil(Math.random()) });
     
     // file with random text
     fs.writeFile(testFile, txt, "utf8", callback);

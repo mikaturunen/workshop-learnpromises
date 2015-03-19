@@ -1,0 +1,9 @@
+{
+    "fail": {
+       "no.promises" : "",
+       "ninvoke": ""
+    },
+    "pass": {
+        "ninvoke": ""
+    }
+}
