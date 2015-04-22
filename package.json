@@ -5,8 +5,7 @@
     "type": "git",
     "url": "https://github.com/mikaturunen/workshop-learnpromises"
   },
-  "license": "BSD-3-Clause",
-  "bin": "./demo-workshopper.js",
+  "license": "MIT",
   "dependencies": {
     "bl": "^0.8.0",
     "boganipsum": "^0.1.0",
